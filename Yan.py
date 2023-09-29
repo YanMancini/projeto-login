@@ -1,6 +1,68 @@
 import pygame
 import sys
 
+def abrir_janela_login():
+    pygame.quit()
+    
+    pygame.init()
+    
+    # Defina as dimensões da segunda tela
+    largura = 600
+    altura = 400
+    
+    # Crie a segunda tela
+    tela_nova = pygame.display.set_mode((largura, altura))
+    pygame.display.set_caption("Tela 2")
+    
+    # Defina as cores da segunda tela
+    cor_fundo2 = (255, 0, 0)  # Vermelho
+    
+    # Loop principal da segunda tela
+    executando_tela2 = True
+    while executando_tela2:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                executando_tela2 = False
+                break
+    
+        # Desenhe a segunda tela
+        tela_nova.fill(cor_fundo2)
+        pygame.display.flip()
+    
+    # Feche a segunda janela
+    pygame.quit()
+
+def abrir_janela_cadastro():
+    pygame.quit()
+    
+    pygame.init()
+    
+    # Defina as dimensões da segunda tela
+    largura = 600
+    altura = 400
+    
+    # Crie a segunda tela
+    tela_nova = pygame.display.set_mode((largura, altura))
+    pygame.display.set_caption("Cadastro")
+    
+    # Defina as cores da segunda tela
+    cor_fundo2 = (255, 0, 0)  # Vermelho
+    
+    # Loop principal da segunda tela
+    executando_tela2 = True
+    while executando_tela2:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                executando_tela2 = False
+                break
+    
+        # Desenhe a segunda tela
+        tela_nova.fill(cor_fundo2)
+        pygame.display.flip()
+    
+    # Feche a segunda janela
+    pygame.quit()
+
 # Inicialize o Pygame
 pygame.init()
 
@@ -55,8 +117,10 @@ while True:
         elif evento.type == pygame.MOUSEBUTTONUP and evento.button == 1:
             if botao_login_clicado and posicao_botao_login.collidepoint(evento.pos):
                 print("Botão Login clicado!")
+                abrir_janela_login()
             if botao_signin_clicado and posicao_botao_signin.collidepoint(evento.pos):
                 print("Botão Sign In clicado!")
+                abrir_janela_cadastro()
             botao_login_clicado = False
             botao_signin_clicado = False
 
