@@ -17,13 +17,80 @@ def abrir_janela(titulo):
     cor_fundo = (255, 0, 0)  # Vermelho
 
     executando_tela = True
+    
+    # Adicione duas entradas de texto
+    input_caixa1 = pygame.Rect(150, 200, 200, 30)  # Ajuste as coordenadas
+    input_caixa2 = pygame.Rect(150, 250, 200, 30)  # Ajuste as coordenadas
+    fonte_input = pygame.font.Font(None, 32)
+    texto_input1 = ""
+    texto_input2 = ""
+    cor_input_ativo = pygame.Color('dodgerblue2')
+    cor_input_inativo = pygame.Color('lightskyblue3')
+    cor_input1 = cor_input_inativo
+    cor_input2 = cor_input_inativo
+    ativo_input1 = False
+    ativo_input2 = False
+
     while executando_tela:
         for evento in pygame.event.get():
             if evento.type == pygame.QUIT:
                 executando_tela = False
                 break
+            if evento.type == pygame.MOUSEBUTTONDOWN:
+                if input_caixa1.collidepoint(evento.pos):
+                    ativo_input1 = not ativo_input1
+                    ativo_input2 = False
+                elif input_caixa2.collidepoint(evento.pos):
+                    ativo_input2 = not ativo_input2
+                    ativo_input1 = False
+                else:
+                    ativo_input1 = False
+                    ativo_input2 = False
+                cor_input1 = cor_input_ativo if ativo_input1 else cor_input_inativo
+                cor_input2 = cor_input_ativo if ativo_input2 else cor_input_inativo
+            if evento.type == pygame.KEYDOWN:
+                if ativo_input1:
+                    if evento.key == pygame.K_RETURN:
+                        print("Texto da Caixa 1:", texto_input1)
+                        # Salve o texto inserido na variável correspondente
+                        texto_caixa1 = texto_input1
+                        # Limpe a entrada de texto
+                        texto_input1 = ""
+                    elif evento.key == pygame.K_BACKSPACE:
+                        texto_input1 = texto_input1[:-1]
+                    else:
+                        texto_input1 += evento.unicode
+                elif ativo_input2:
+                    if evento.key == pygame.K_RETURN:
+                        print("Texto da Caixa 2:", texto_input2)
+                        # Salve o texto inserido na variável correspondente
+                        texto_caixa2 = texto_input2
+                        # Limpe a entrada de texto
+                        texto_input2 = ""
+                    elif evento.key == pygame.K_BACKSPACE:
+                        texto_input2 = texto_input2[:-1]
+                    else:
+                        texto_input2 += evento.unicode
 
         tela.blit(imagem_fundo, posicao_fundo)
+
+        # Desenhe as caixas de entrada de texto
+        pygame.draw.rect(tela, cor_input1, input_caixa1, 2)
+        pygame.draw.rect(tela, cor_input2, input_caixa2, 2)
+
+        # Renderize o texto inserido nas caixas de entrada
+        texto_surface1 = fonte_input.render(texto_input1, True, (0, 0, 0))
+        texto_surface2 = fonte_input.render(texto_input2, True, (0, 0, 0))
+
+        # Centralize verticalmente o texto nas caixas de entrada
+        text_rect1 = texto_surface1.get_rect()
+        text_rect1.center = input_caixa1.center
+        tela.blit(texto_surface1, text_rect1.topleft)
+
+        text_rect2 = texto_surface2.get_rect()
+        text_rect2.center = input_caixa2.center
+        tela.blit(texto_surface2, text_rect2.topleft)
+
         pygame.display.flip()
 
     pygame.quit()
