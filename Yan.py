@@ -5,10 +5,13 @@ def abrir_janela_login():
     pygame.quit()
     
     pygame.init()
-    
-    # Defina as dimensões da segunda tela
-    largura = 600
-    altura = 400
+    largura = 500
+    altura = 500
+
+    imagem_fundo = pygame.image.load("Img_painel.png")
+    imagem_fundo = pygame.transform.scale(imagem_fundo, (largura, altura))
+    posicao_fundo = imagem_fundo.get_rect()
+
     
     # Crie a segunda tela
     tela_nova = pygame.display.set_mode((largura, altura))
@@ -26,7 +29,7 @@ def abrir_janela_login():
                 break
     
         # Desenhe a segunda tela
-        tela_nova.fill(cor_fundo2)
+        tela_nova.blit(imagem_fundo, posicao_fundo)
         pygame.display.flip()
     
     # Feche a segunda janela
@@ -74,7 +77,7 @@ altura = 500
 tela = pygame.display.set_mode((largura, altura))
 
 # Carregue a imagem de fundo
-imagem_fundo = pygame.image.load("Img/Img_painel.png")
+imagem_fundo = pygame.image.load("Img_painel.png")
 
 # Redimensione a imagem de fundo para as dimensões da tela
 imagem_fundo = pygame.transform.scale(imagem_fundo, (largura, altura))
